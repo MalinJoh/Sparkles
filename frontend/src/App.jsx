@@ -1,14 +1,28 @@
-import React from 'react'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+
 
 function App() {
+  const [products, setProducts] = useState([])
+
   useEffect(() => {
-    fetch('/api')
-      .then((response) => response.json())
-      .then((result) => {
-        alert(`Hello ${result.hello}!`)
+    axios.get('/products')
+      .then((response) => {
+        setProducts(response.data)
       })
   }, [])
+  return (
+    <div>
+      <h1>Produkter och pris</h1>
+      <ul>
+        {products.map(product => (
+          <li key={product.id}>
+            {product.name}:{product.price}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
 export default App
