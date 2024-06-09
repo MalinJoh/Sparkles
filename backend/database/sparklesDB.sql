@@ -14,7 +14,21 @@ INSERT INTO products VALUES(10,'bracelet','Midnight Sapphire Bracelet','Lys upp 
 INSERT INTO products VALUES(11,'bracelet','Snowflake Elegance Bracelet','Vårt Snowflake Elegance Bracelet är prytt med skimrande vita ädelstenar som fångar ljuset och utstrålar en ren och sofistikerad skönhet. Infattade i en kedja av vitt guld, är dessa stenar en symbol för renhet och elegans. Detta armband är perfekt för att lägga till en touch av glans till både vardagliga och formella kläder.',2899.9899999999998456,'Bilder/white.png');
 INSERT INTO products VALUES(12,'bracelet','Sky Dream Bracelet','Fly till himlens lugn med vårt Sky Dream Bracelet. De ljusblå ädelstenarna i detta armband utstrålar en känsla av ro och klarhet, infattade i en kedja av vitt guld. Detta smycke är designat för att framhäva den lugna skönheten hos de ljusblå stenarna, vilket gör det till ett perfekt tillskott till din smyckesamling.',2899.9899999999998456,'Bilder/lightblue.png');
 INSERT INTO products VALUES(13,'bracelet','Lavender Mist Bracelet','Fånga skönheten hos vårens blomning med vårt Lavender Mist Bracelet. Denna unika design pryds av lila-vit fluorit som utstrålar en förtrollande blandning av färger. Infattad i en subtil kedja av vitt guld, är detta armband en perfekt kombination av naturlig elegans och modern stil. Ett perfekt smycke för att lägga till en touch av färg och charm till din look.',1999.9900000000000233,'Bilder/purple.png');
-CREATE TABLE orders (id INTEGER PRIMARY KEY AUTOINCREMENT, product_id INTEGER, size INTEGER, quantity INTEGER NOT NULL, order_date TEXT DEFAULT (datetime('now')), product_name TEXT, price REAL, FOREIGN KEY (product_id) REFERENCES products(id) );
+CREATE TABLE orders (
+   ...>     id INTEGER PRIMARY KEY AUTOINCREMENT,
+   ...>     product_id INTEGER,
+   ...>     size INTEGER,
+   ...>     quantity INTEGER NOT NULL,
+   ...>     order_date TEXT DEFAULT (datetime('now')),
+   ...>     product_name TEXT,
+   ...>     price REAL, first_name TEXT, last_name TEXT,shipping_method TEXT,
+   ...>     payment_method TEXT,
+   ...>     address TEXT,
+   ...>     city TEXT,
+   ...>     postal_code TEXT,
+   ...>     FOREIGN KEY (product_id) REFERENCES products(id)
+   ...> );
+
 DELETE FROM sqlite_sequence;
 INSERT INTO sqlite_sequence VALUES('products',13);
 COMMIT;

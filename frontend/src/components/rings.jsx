@@ -3,17 +3,13 @@ import axios from 'axios'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import Cart from './cart';
 
-
-
-function Rings() {
+function Rings({ handleAddToCart }) {
   const [rings, setRings] = useState([])
-  const [selectedSizes, setSelectedSize] = useState({})
-  const [cartItems, setCartItems] = useState([])
+  const [selectedSizes, setSelectedSizes] = useState({})
 
   useEffect(() => {
-    axios.get('/products/rings')
+    axios.get('/products/ring')
       .then((response) => {
         setRings(response.data)
       })
@@ -23,37 +19,31 @@ function Rings() {
   }, [])
 
   const handleSize = (ringId, size) => {
-    setSelectedSize(prevSizes => ({
+    setSelectedSizes(prevSizes => ({
       ...prevSizes,
       [ringId]: size
     }))
   }
 
-  const handleAddToCart = (ring) => {
+  const addToCartClick = (ring) => {
     const size = selectedSizes[ring.id]
-    if (size) {
-      const newItem = {
-        ...ring,
-        size
-      }
-      setCartItems([...cartItems, newItem])
-    } else {
+    console.log("Selected size for ring:", size)
+    if (!size) {
       alert('Storlek måste väljas innan ringen kan läggas till i varukorgen')
+      return
+    } else {
+      handleAddToCart(ring, size)
     }
   }
 
-  const handleRemoveFromCart = (itemId) => {
-    setCartItems(cartItems.filter(item => item.id !== itemId))
-  }
-
   return (
-    <div>
+    <>
       <h1>Ringar</h1>
-      <div className="grid-container">
-        {rings.map(ring => (
+      <div className="grid-container-rings">
+        {rings.map((ring) => (
           <div className="grid-item" key={ring.id}>
-            <Card style={{ width: '25rem' }}>
-              <Card.Img className="card-img-custom"
+            <Card style={{ width: '100%' }}>
+              <Card.Img className="card-img-rings"
                 variant="top"
                 src={`./${ring.image}`}
                 alt={ring.name} />
@@ -61,7 +51,7 @@ function Rings() {
                 <Card.Title style={{ fontWeight: 'bold' }}>{ring.name}</Card.Title>
                 <Card.Text>Pris: {ring.price}</Card.Text>
                 <Card.Text>{ring.description}</Card.Text>
-                <Form.Group controlId={`size-select-${ring.id}`}>
+                <Form.Group controlId={`size-select-${ring.id}`} required>
                   <Form.Control as="select" onChange={(e) => handleSize(ring.id, parseInt(e.target.value))}>
                     <option value="">Välj Storlek</option>
                     <option value="6">6</option>
@@ -70,14 +60,13 @@ function Rings() {
                     <option value="9">9</option>
                   </Form.Control>
                 </Form.Group>
-                <Button variant="primary" onClick={() => handleAddToCart(ring)}>Lägg till i varukorgen</Button>
+                <Button className="btn-add" onClick={() => addToCartClick(ring)}>Lägg till i varukorgen</Button>
               </Card.Body>
             </Card>
           </div>
         ))}
       </div>
-      <Cart cartItems={cartItems} onRemoveItem={handleRemoveFromCart} />
-    </div>
+    </>
   )
 }
 

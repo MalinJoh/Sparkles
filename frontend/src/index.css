@@ -3,11 +3,13 @@
 html,
 body {
   font-family: sans-serif;
+  font-weight: lighter;
+  text-align: center;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   box-sizing: border-box;
-  background-color: #DBDCDE;
+  background-color: white;
 }
 
 header {
@@ -28,24 +30,125 @@ h1 {
   padding: 1rem;
 }
 
-.card-img-custom {
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
+.navbar {
+  background-color: #938F8F;
 }
 
-.grid-container {
+.nav-title {
+  font-family: "Lexend Zetta", sans-serif;
+  color: white !important;
+}
+
+.nav-link {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 1rem;
+  color: white !important;
+}
+
+.nav-link:hover {
+  color: lightgray !important;
+}
+
+.nav-link-co {
+  color: white !important;
+}
+
+.btn-nav {
+  background-color: #4a4a4a !important;
+  border-color: #4a4a4a !important;
+  color: white !important;
+  margin-right: 3rem !important;
+}
+
+.dropdown-menu {
+  width: 250px;
+}
+
+.dropdown-text {
+  font-size: small !important;
+}
+
+.btn-cart {
+  align-items: end !important;
+  padding: 4px 8px !important;
+  font-size: 0.800rem !important;
+  background-color: #4a4a4a !important;
+  border-color: #4a4a4a !important;
+  color: white !important;
+}
+
+.text {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.img-stones {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+  margin: 3rem;
+}
+
+.btn-add {
+  background-color: #4a4a4a !important;
+  border-color: #4a4a4a !important;
+  color: white !important;
+  margin-top: 1rem !important;
+}
+
+.btn-add:hover {
+  background-color: #333333 !important;
+  border-color: #333333 !important;
+}
+
+.grid-container-rings,
+.grid-container-bracelets,
+.grid-container-necklaces {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
   color: black;
+}
+
+.grid-container-rings {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-container-bracelets {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.grid-container-necklaces {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.card-img-rings {
+  height: 80%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-img-bracelets {
+  height: 55%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-img-necklaces {
+  height: 80%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .grid-item {
   display: flex;
   justify-content: center;
   padding: 1rem;
+  font-size: small;
 }
 
 form {
@@ -54,4 +157,142 @@ form {
 
 .cart {
   margin: 2rem;
+}
+
+footer {
+  font-size: 1rem;
+  text-align: center;
+  background-color: #938F8F;
+  padding: 1rem;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: gray;
+}
+
+.checkout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px;
+}
+
+.left-side,
+.right-side {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-side {
+  grid-column: 1 / 2;
+}
+
+.right-side {
+  grid-column: 2 / 3;
+}
+
+.cart-card .d-flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.cart-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-right: 20px;
+}
+
+.cart-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.total-amount {
+  padding-top: 1rem;
+}
+
+.ship-form,
+.payment-form,
+.adress-form {
+  margin-top: 20px;
+}
+
+.form-check-input[type=radio],
+.form-check,
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.form-label {
+  font-size: 16px;
+  padding-left: 5px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button.btn-confirm {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Media Queries */
+
+@media (max-width: 850px) {
+
+  .grid-container-rings,
+  .grid-container-necklaces {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .grid-container-bracelets {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .checkout {
+    grid-template-columns: 1fr;
+  }
+
+  .left-side,
+  .right-side {
+    grid-column: 1 / 2;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .grid-container-bracelets {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
