@@ -8,9 +8,9 @@ const app = express()
 // Middleware för att kunna hantera JSON
 app.use(express.json())
 
-console.log(__dirname)
-// Anslut till SQLite-databasen
-const db = new sqlite3.Database(path.resolve(__dirname, "../database/sparklesDB.sqlite"))
+const dbPath = path.resolve(__dirname, "../database/sparklesDB.sqlite")
+console.log("Databas sökväg:", dbPath)
+const db = new sqlite3.Database(dbPath)
 
 // GET-endpoint för att hämta produkter baserat på kategori
 app.get('/products/:category', (req: Request, res: Response) => {
