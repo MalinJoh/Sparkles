@@ -8,15 +8,24 @@ const app = express()
 // Middleware för att kunna hantera JSON
 app.use(express.json())
 
+// Ange sökvägen till databasen
 const dbPath = path.resolve(__dirname, "../database/sparklesDB.sqlite")
-const db = new sqlite3.Database(dbPath)
+console.log("Databas sökväg:", dbPath)
+
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("Error connecting to the database:", err.message)
+  } else {
+    console.log("Connected to the SQLite database.")
+  }
+})
 
 // GET-endpoint för att hämta produkter baserat på kategori
 app.get('/products/:category', (req: Request, res: Response) => {
-  const category = req.params.category
+  const category = req.params.category;
   db.all('SELECT * FROM products WHERE category = ?', [category], (err, rows) => {
     if (err) {
-      console.error(err.message)
+      console.error("Database error:", err.message);
       res.status(500).send('Database error')
       return
     }
@@ -33,7 +42,7 @@ app.post('/orders', (req: Request, res: Response) => {
 
   db.run(sql, params, function (err) {
     if (err) {
-      console.error(err.message);
+      console.error("Order insertion error:", err.message)
       res.status(500).json({ error: err.message })
       return
     }
@@ -41,10 +50,15 @@ app.post('/orders', (req: Request, res: Response) => {
   })
 })
 
-
 // Serve statiska filer från 'dist' mappen
-const distPath = path.join(path.resolve(), 'dist')
+const distPath = path.join(__dirname)
+console.log("Serving static files from:", distPath)
 app.use(express.static(distPath))
+
+// Catch-all route to handle client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'))
+})
 
 // Starta servern
 const PORT = process.env.PORT || 3000;
