@@ -9,7 +9,6 @@ const app = express()
 app.use(express.json())
 
 const dbPath = path.resolve(__dirname, "../database/sparklesDB.sqlite")
-console.log("Databas sökväg:", dbPath)
 const db = new sqlite3.Database(dbPath)
 
 // GET-endpoint för att hämta produkter baserat på kategori
@@ -18,10 +17,10 @@ app.get('/products/:category', (req: Request, res: Response) => {
   db.all('SELECT * FROM products WHERE category = ?', [category], (err, rows) => {
     if (err) {
       console.error(err.message)
-      res.status(500).send('Database error');
-      return;
+      res.status(500).send('Database error')
+      return
     }
-    res.json(rows);
+    res.json(rows)
   })
 })
 
@@ -44,7 +43,8 @@ app.post('/orders', (req: Request, res: Response) => {
 
 
 // Serve statiska filer från 'dist' mappen
-app.use(express.static(path.join(path.resolve(), 'dist')))
+const distPath = path.join(path.resolve(), 'dist')
+app.use(express.static(distPath))
 
 // Starta servern
 const PORT = process.env.PORT || 3000;
