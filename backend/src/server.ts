@@ -8,7 +8,7 @@ const app = express()
 // Middleware för att kunna hantera JSON
 app.use(express.json())
 
-
+console.log(__dirname)
 // Anslut till SQLite-databasen
 const db = new sqlite3.Database(path.resolve(__dirname, "../database/sparklesDB.sqlite"))
 
